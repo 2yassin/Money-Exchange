@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محول العملة السورية - مع إدخال أسعار الصرف</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <h1>محول العملة السورية</h1>
+        <p class="subtitle">تحويل بين العملة السورية القديمة والجديدة والعملات العالمية - مع إدخال أسعار الصرف</p>
+    </header>
+
+    <div class="container">
+        <div class="converter-card">
+            <h2 class="card-title">تحويل العملة السورية</h2>
+
+            <div class="currency-options">
+                <div class="currency-option active" id="old-currency">العملة القديمة (مع صفرين)</div>
+                <div class="currency-option" id="new-currency">العملة الجديدة (بدون صفرين)</div>
+            </div>
+
+            <div class="input-group">
+                <label for="amount">المبلغ المدخل:</label>
+                <input type="number" id="amount" placeholder="أدخل المبلغ" min="0" step="1" value="100000">
+            </div>
+
+            <div class="input-group">
+                <label>نوع التحويل:</label>
+                <select id="conversion-type">
+                    <option value="syp-to-usd">من السوري إلى الدولار</option>
+                    <option value="syp-to-eur">من السوري إلى اليورو</option>
+                    <option value="syp-to-try">من السوري إلى الليرة التركية</option>
+                    <option value="old-to-new">من العملة القديمة إلى الجديدة</option>
+                    <option value="new-to-old">من العملة الجديدة إلى القديمة</option>
+                </select>
+            </div>
+
+            <button id="convert-btn">تحويل</button>
+
+            <div class="result">
+                <div>النتيجة:</div>
+                <div class="result-value" id="result">0</div>
+                <div class="conversion-rate" id="rate-info">سعر الصرف: 1</div>
+            </div>
+
+            <div class="example-conversion">
+                <div class="example-title">مثال سريع:</div>
+                <div>100,000 ليرة سورية قديمة = <strong>1,000</strong> ليرة سورية جديدة</div>
+                <div>100,000 ليرة سورية قديمة = <strong id="example-usd">9.09</strong> دولار أمريكي</div>
+                <div>100,000 ليرة سورية قديمة = <strong id="example-eur">8.33</strong> يورو</div>
+            </div>
+        </div>
+
+        <div class="converter-card">
+            <h2 class="card-title">إدخال أسعار الصرف</h2>
+
+            <div class="rate-type-selector">
+                <div class="rate-type-title">اختر نوع العملة السورية لأسعار الصرف:</div>
+                <div class="rate-buttons">
+                    <button class="rate-btn active" id="rate-for-new">ليرة سورية جديدة</button>
+                    <button class="rate-btn" id="rate-for-old">ليرة سورية قديمة</button>
+                </div>
+            </div>
+
+            <div class="exchange-rates">
+                <div class="rate-card">
+                    <div class="rate-currency">الدولار الأمريكي (USD)</div>
+                    <div>1 دولار = </div>
+                    <input type="number" id="usd-rate-input" class="rate-input" placeholder="أدخل السعر" min="1"
+                        step="1" value="11000">
+                    <div>ليرة سورية</div>
+                </div>
+
+                <div class="rate-card">
+                    <div class="rate-currency">اليورو (EUR)</div>
+                    <div>1 يورو = </div>
+                    <input type="number" id="eur-rate-input" class="rate-input" placeholder="أدخل السعر" min="1"
+                        step="1" value="12000">
+                    <div>ليرة سورية</div>
+                </div>
+
+                <div class="rate-card">
+                    <div class="rate-currency">الليرة التركية (TRY)</div>
+                    <div>1 ليرة تركية = </div>
+                    <input type="number" id="try-rate-input" class="rate-input" placeholder="أدخل السعر" min="1"
+                        step="1" value="300">
+                    <div>ليرة سورية</div>
+                </div>
+            </div>
+
+            <button id="save-rates-btn" class="save-rates-btn">حفظ أسعار الصرف</button>
+            <button id="reset-rates-btn" class="reset-btn">استعادة القيم الافتراضية</button>
+            
+
+            <div class="current-rates-display">
+                <div class="info-title">أسعار الصرف الحالية:</div>
+                <div class="rate-item">
+                    <span>الدولار الأمريكي:</span>
+                    <span id="current-usd-rate">11,000 ل.س جديدة</span>
+                </div>
+                <div class="rate-item">
+                    <span>اليورو:</span>
+                    <span id="current-eur-rate">12,000 ل.س جديدة</span>
+                </div>
+                <div class="rate-item">
+                    <span>الليرة التركية:</span>
+                    <span id="current-try-rate">300 ل.س جديدة</span>
+                </div>
+                <div class="rate-item">
+                    <span>نوع العملة:</span>
+                    <span id="current-rate-type">جديدة</span>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="info-title">تعليمات إدخال أسعار الصرف</div>
+                <p>1. اختر نوع العملة السورية (جديدة أو قديمة) لأسعار الصرف</p>
+                <p>2. أدخل سعر الصرف لكل عملة: كم ليرة سورية تعادل 1 من العملة الأجنبية</p>
+                <p>3. اضغط على "حفظ أسعار الصرف" لتطبيق الأسعار الجديدة</p>
+                <p class="note">ملاحظة: القيم الافتراضية هي 11,000 ليرة سورية جديدة للدولار، 12,000 ليرة سورية جديدة
+                    لليورو، و300 ليرة سورية جديدة لليرة التركية.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="converter-card">
+        <h2 class="card-title">معلومات عن العملة السورية</h2>
+
+        <div class="info-box">
+            <div class="info-title">التغيير في العملة السورية</div>
+            <p>أطلقت الدولة السورية عملة جديدة عبارة عن حذف صفرين من العملة القديمة.</p>
+            <p>مثال: 1000 ليرة سورية قديمة = 10 ليرات سورية جديدة</p>
+            <p>مع الأسعار الحالية: 1 دولار = 11,000 ليرة سورية جديدة = 1,100,000 ليرة سورية قديمة</p>
+        </div>
+
+        <div class="exchange-rates">
+            <div class="rate-card">
+                <div class="rate-currency">تحويلات سريعة</div>
+                <div>1 دولار =</div>
+                <div class="rate-value">11,000 ل.س جديدة</div>
+                <div>= 1,100,000 ل.س قديمة</div>
+            </div>
+
+            <div class="rate-card">
+                <div class="rate-currency">تحويلات سريعة</div>
+                <div>1 يورو =</div>
+                <div class="rate-value">12,000 ل.س جديدة</div>
+                <div>= 1,200,000 ل.س قديمة</div>
+            </div>
+
+            <div class="rate-card">
+                <div class="rate-currency">تحويلات سريعة</div>
+                <div>1 ليرة تركية =</div>
+                <div class="rate-value">300 ل.س جديدة</div>
+                <div>= 30,000 ل.س قديمة</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+
+            <p>تم إنشاء هذا الموقع لمساعدة المدنيين في التعامل مع العملة </p>
+
+            <p>تم برمجة هذا الموقع من قبل المبرمج ياسين محمد سعيد البكور </p>
+
+        </div>
+
+        <p>©2026 محول العملة السورية مع إدخال أسعار الصرف</p>
+
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
